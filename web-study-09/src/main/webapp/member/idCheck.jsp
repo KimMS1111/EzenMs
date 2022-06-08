@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>중복 체크</title>
+<script type="text/javascript" src="script/member.js"></script>
 </head>
 <body>
 	<h2>아이디 중복확인</h2>
@@ -23,7 +24,7 @@
 		
 		<c:if test="${result == -1}">
 			${userid}는 사용 가능한 아이디입니다.
-			<input type="button" value="사용" class="cancel" onclick="idok('${userid}')">
+			<input type="button" value="사용" class="cancel" onclick="idok()">
 		</c:if>
 	</form>
 </body>

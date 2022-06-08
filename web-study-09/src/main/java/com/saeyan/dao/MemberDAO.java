@@ -150,10 +150,85 @@ public class MemberDAO {
 				 e.printStackTrace();
 			 }
 		}
+		return result;
+	}
+	
+
+	public int insertMember(MemberVO mVo) {
 		
+		int result = -1;
 		
+		String sql = "insert into member(name, userid, pwd, email, phone, admin)"
+					+"values(?,?,?,?,?,?)"; // 업데이트 전 무조건 오라클에 확인해볼것!!
 		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		
+		try {
+			conn = getConnection();
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, mVo.getName());
+			pstm.setString(2, mVo.getUserid());
+			pstm.setString(3, mVo.getPwd());
+			pstm.setString(4, mVo.getEmail());
+			pstm.setString(5, mVo.getPhone());
+			pstm.setInt(6, mVo.getAdmin());
+			
+			result = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}finally {
+			
+			try {
+				if(pstm != null)pstm.close();
+				if(conn != null)conn.close();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				
+			}
+		}
 		
 		return result;
+	}
+
+	public void updateMember(MemberVO mVo) {
+		
+		int result = -1;
+		
+		String sql = "update member set pwd=?, email=?,"
+					+"phone=?, admin=? where userid=?";
+		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		
+		try {
+			conn = getConnection();
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, mVo.getPwd());
+			pstm.setString(2, mVo.getEmail());
+			pstm.setString(3, mVo.getPhone());
+			pstm.setInt(4, mVo.getAdmin());
+			pstm.setString(5, mVo.getUserid());
+			
+			result = pstm.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}finally {
+			
+			try {
+				if(pstm != null)pstm.close();
+				if(conn != null)conn.close();
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				
+			}
+		}
+		
 	}
 }
